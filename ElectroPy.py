@@ -8,18 +8,28 @@ solving multiple types of problems in the area of electromagetics.
         - Partial Derivatives
         - Curl
     Currently working on:
-        - Derivates (getDerivative)
+        - Partial Derivatives (getPartialDerivative)
+            - Figuring out where to put/ how to figure out symbols
 """
 
 from sympy import *
 import numpy as np
 
+def getDerivative(f, symbol):
+    f_prime = y.diff(symbol)
+    print(f_prime)
 
-def getDerivative(y, symbol):
-    y_prime = y.diff(symbol)
-    print(y_prime)
+def getPartialDerivative(f):
+    x, y, z = symbols('x y z', real=True)
+    f_prime = diff(f, x)
+    print(f_prime)
 
 # Testing the getDerivative function
 x = Symbol('x')
-y = x**2 + 2*x + 1
+y = sin(x**2 + 2*x + 1)
 getDerivative(y, x)
+
+# Testing the getPartialDerivative function
+x, y, z = symbols('x y z', real=True)
+f = 4*x*y + x*sin(z) + x**3 + z**8*y
+getPartialDerivative(f)
