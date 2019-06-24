@@ -46,7 +46,7 @@ def getCrossProduct(v1, v2):
     return np.cross(v1, v2)
 
 def getGradient(f):
-    '''Return the gradient of one scalar field of size 3.'''
+    '''Return the gradient of one scalar field.'''
     x, y, z = symbols('x y z', real=True)
     gradf = [diff(f, x), diff(f, y), diff(f, z)]
     print('The gradient of scalar field f is: ' + str(gradf))
