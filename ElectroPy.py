@@ -7,6 +7,8 @@ solving multiple types of problems in the area of electromagetics.
     Functions needed:
         - Curl
         - Cross Product
+        - Conversion functions for coordinate systems. (cart2spher, cart2)
+        -
     Currently working on:
         - I am trying to find a better way to declare symbols for the
           getDerivative and getPartialDerivative functions. Currently,
@@ -17,6 +19,34 @@ solving multiple types of problems in the area of electromagetics.
         - Self note: I would like to build a few functions relating to the
           coordinate systems. AKA, cylindrical, cartesian, spherical. I will
           likely perform the conversion between them.
+        -
+Important Variables:
+
+    Coordinate System
+        Cartesian Unit Vectors:
+            - ax, ay, az
+                ax X ay = az
+                ay X az = ax
+                az X ax = ay
+        Cylindrical Unit Vectors
+            - arow, aphi, az
+                arow X aphi = az
+                aphi X az = arow
+                az x arow = aphi
+        Sperical Unit Vectors
+            - ar, atheta, aphi
+                ar X atheta = aphi
+                atheta X aphi = ar
+                aphi X ar = atheta
+    Maxwell's Equation Variables:
+        - D = the electric flux density
+        - B = the magnetic flux density
+        - E = the electric field intensity
+        - H the magnetic field intensity
+        - rowv = the volume charge density
+        - J = the current density
+
+
 '''
 
 from sympy import *
