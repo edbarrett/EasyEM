@@ -23,27 +23,34 @@ from sympy import *
 import numpy as np
 
 def getDerivative(f, symbol):
-    ''' Return the derivative of the function f with respect to symbol. '''
+    ''' Return the derivative of the function f with respect to symbol.'''
     f_prime = y.diff(symbol)
     print(f_prime)
     return f_prime
 
 def getPartialDerivative(f):
-    ''' Return the partial derivative of the function f with respect to symbol. '''
+    ''' Return the partial derivative of the function f with respect to symbol.'''
     x, y, z = symbols('x y z', real=True)
     f_prime = diff(f, x)
     print(f_prime)
     return f_prime
 
 def getDotProduct(v1, v2):
-    '''Return the dot product of two equal-length vectors. '''
+    '''Return the dot product of two equal-length vectors.'''
     print('Dot product of the two vectors: ' + str(np.dot(v1, v2)))
     return np.dot(v1, v2)
 
 def getCrossProduct(v1, v2):
-    '''Return the cross product of two equal-length vectors of size 2 or 3. '''
+    '''Return the cross product of two equal-length vectors of size 2 or 3.'''
     print('Cross product of the two vectors: ' + str(np.cross(v1, v2)))
     return np.cross(v1, v2)
+
+def getGradient(f):
+    '''Return the gradient of one scalar field of size 3.'''
+    x, y, z = symbols('x y z', real=True)
+    gradf = [diff(f, x), diff(f, y), diff(f, z)]
+    print('The gradient of scalar field f is: ' + str(gradf))
+
 '''Testing Section
 
 This section will not be in the end product.
@@ -59,7 +66,7 @@ getDerivative(y, x)
 
 # Testing the getPartialDerivative function
 x, y, z = symbols('x y z', real=True)
-f = 4*x*y + x*sin(z) + x**3 + z**8*y
+f = y*(x**2) + x*y*z
 getPartialDerivative(f)
 
 # Testing the getDotProduct function
@@ -69,3 +76,5 @@ scalar = getDotProduct(E, B)
 
 # Testing the getCrossProduct function
 cross = getCrossProduct(E, B)
+
+getGradient(f)
