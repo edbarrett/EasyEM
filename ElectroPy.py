@@ -1,7 +1,8 @@
 
 '''
-This is the main package/library for this project. Eventually, it will hold all the functions necessary for
-solving multiple types of problems in the area of electromagetics.
+This is the main package/library for this project. Eventually, it will hold all
+the functions necessary for solving multiple types of problems in the area of
+electromagetics.
 
 # TODO:
     Functions needed:
@@ -29,10 +30,10 @@ Important Variables:
                 ay X az = ax
                 az X ax = ay
         Cylindrical Unit Vectors
-            - arow, aphi, az
-                arow X aphi = az
-                aphi X az = arow
-                az x arow = aphi
+            - arho, aphi, az
+                arho X aphi = az
+                aphi X az = arho
+                az x arho = aphi
         Sperical Unit Vectors
             - ar, atheta, aphi
                 ar X atheta = aphi
@@ -53,7 +54,7 @@ import numpy as np
 
 def getDerivative(f, symbol):
     ''' Return the derivative of the function f with respect to symbol.'''
-    f_prime = y.diff(symbol)
+    f_prime = f.diff(symbol)
     print(f_prime)
     return f_prime
 
@@ -79,3 +80,12 @@ def getGradient(f):
     x, y, z = symbols('x y z', real=True)
     gradf = [diff(f, x), diff(f, y), diff(f, z)]
     print('The gradient of scalar field f is: ' + str(gradf))
+
+#TODO:
+def isCartesian(f):
+    '''Return True if the function is in the Cartesian system.'''
+    cartesian = True
+    #if ('r' not in str(f)) and ('phi' not in str(f)) and ('theta' not in str(f)):
+    if ('r' or 'phi' or 'theta' in str(f)):
+        cartesian = False
+    return cartesian
