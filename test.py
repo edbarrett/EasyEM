@@ -36,7 +36,15 @@ getCrossProduct((P+Q), (P-Q))
 print(getDotProduct(Q, getCrossProduct(R, P)))
 
 # Testing the isCartesian function
-rho, phi, z = symbols('rho phi z', real=True)
-y = phi*(rho**2) + rho*phi*z
 print(str(f))
 print(str(isCartesian(f)))
+
+rho, phi, z = symbols('rho phi z', real=True)
+y = phi*(rho**2) + rho*phi*z
+print(str(y))
+print(str(isCartesian(y)))
+
+z = Symbol('z')
+z = sin(z)
+print(str(z))
+print(str(isCartesian(z)))
