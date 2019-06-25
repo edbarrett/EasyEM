@@ -77,9 +77,18 @@ def getCrossProduct(v1, v2):
 
 def getGradient(f):
     '''Return the gradient of one scalar field.'''
-    x, y, z = symbols('x y z', real=True)
-    gradf = [diff(f, x), diff(f, y), diff(f, z)]
-    print('The gradient of scalar field f is: ' + str(gradf))
+    if isCartesian(f):
+        x, y, z = symbols('x y z', real=True)
+        gradf = [diff(f, x), diff(f, y), diff(f, z)]
+        print('The gradient of scalar field f is: ' + str(gradf))
+    elif isCylindrical(f):
+        rho, phi, z = symbols('rho phi z', real=True)
+        gradf = [diff(f, rho), diff(f, phi), diff(f, z)]
+        print('The gradient of scalar field f is: ' + str(gradf))
+    elif isSpherical(f):
+        r, theta, phi = symbols('r theta phi', real=True)
+        gradf = [diff(f, r), diff(f, theta), diff(f, phi)]
+        print('The gradient of scalar field f is: ' + str(gradf))
 
 def isCartesian(f):
     '''Return True if the function is in the Cartesian coordinate system.'''
@@ -88,6 +97,7 @@ def isCartesian(f):
         answer = False
     return answer
 
+#TODO: Fix this. Cannot use 'r' in str(f) because of rho
 def isCylindrical(f):
     '''Return True if the function is in the Cylindrical coordinate system.'''
     answer = True
