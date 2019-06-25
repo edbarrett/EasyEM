@@ -46,7 +46,6 @@ Important Variables:
         - rowv = the volume charge density
         - J = the current density
 
-
 '''
 
 from sympy import *
@@ -80,31 +79,3 @@ def getGradient(f):
     x, y, z = symbols('x y z', real=True)
     gradf = [diff(f, x), diff(f, y), diff(f, z)]
     print('The gradient of scalar field f is: ' + str(gradf))
-
-'''Testing Section
-
-This section will not be in the end product.
-It is only meant to quickly test new functions. Eventually,
-I will add a file dedicated to creating tests.
-
-'''
-
-# Testing the getDerivative function
-x = Symbol('x')
-y = sin(x**2 + 2*x + 1)
-getDerivative(y, x)
-
-# Testing the getPartialDerivative function
-x, y, z = symbols('x y z', real=True)
-f = y*(x**2) + x*y*z
-getPartialDerivative(f)
-
-# Testing the getDotProduct function
-E = np.array([1, 2, 3])
-B = np.array([4, 5, 6])
-scalar = getDotProduct(E, B)
-
-# Testing the getCrossProduct function
-cross = getCrossProduct(E, B)
-
-getGradient(f)
