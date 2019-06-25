@@ -7,8 +7,7 @@ electromagetics.
 # TODO:
     Functions needed:
         - Curl
-        - Cross Product
-        - Conversion functions for coordinate systems. (cart2spher, cart2)
+        - Conversion functions for coordinate systems. (cart2spher, cart2..)
         -
     Currently working on:
         - I am trying to find a better way to declare symbols for the
@@ -17,25 +16,26 @@ electromagetics.
           must be declared twice. Once before declaring the equation
           and once before using them inside of a method. I would like to only
           declare them once if possible.
-        - Self note: I would like to build a few functions relating to the
-          coordinate systems. AKA, cylindrical, cartesian, spherical. I will
-          likely perform the conversion between them.
+        - There might be a need to create an object for coordinate vectors.
+          It may be easier to do thisVect.type() (or similar) to figure out
+          which coordinate system it is in. Maybe the object could also hold
+          a vector field representation as well? I've got to use my head...
         -
 Important Variables:
 
     Coordinate System
         Cartesian Unit Vectors:
-            - ax, ay, az
+            - ax (-inf, inf), ay (-inf, inf), az (-inf, inf)
                 ax X ay = az
                 ay X az = ax
                 az X ax = ay
         Cylindrical Unit Vectors
-            - arho, aphi, az
+            - arho [0, inf), aphi [0, 2*pi), az (-inf, inf)
                 arho X aphi = az
                 aphi X az = arho
                 az x arho = aphi
         Sperical Unit Vectors
-            - ar, atheta, aphi
+            - ar [0, inf), atheta [0, pi], aphi [0, 2*pi)
                 ar X atheta = aphi
                 atheta X aphi = ar
                 aphi X ar = atheta
@@ -101,3 +101,6 @@ def isSpherical(f):
     if ('x' in str(f)) or ('y' in str(f)) or ('z' in str(f) or ('rho' in str(f))):
         answer = False
     return answer
+
+def fromCart2Cyl():
+    '''Return the 3x1 Cylindrical coordinates.'''
