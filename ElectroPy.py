@@ -35,10 +35,10 @@ Important Variables:
                 aphi X az = arho
                 az x arho = aphi
         Sperical Unit Vectors
-            - ar [0, inf), atheta [0, pi], aphi [0, 2*pi)
-                ar X atheta = aphi
-                atheta X aphi = ar
-                aphi X ar = atheta
+            - aradi [0, inf), atheta [0, pi], aphi [0, 2*pi)
+                aradi X atheta = aphi
+                atheta X aphi = aradi
+                aphi X aradi = atheta
     Maxwell's Equation Variables:
         - D = the electric flux density
         - B = the magnetic flux density
@@ -86,22 +86,21 @@ def getGradient(f):
         gradf = [diff(f, rho), diff(f, phi), diff(f, z)]
         print('The gradient of scalar field f is: ' + str(gradf))
     elif isSpherical(f):
-        r, theta, phi = symbols('r theta phi', real=True)
-        gradf = [diff(f, r), diff(f, theta), diff(f, phi)]
+        radi, theta, phi = symbols('radi theta phi', real=True)
+        gradf = [diff(f, radi), diff(f, theta), diff(f, phi)]
         print('The gradient of scalar field f is: ' + str(gradf))
 
 def isCartesian(f):
     '''Return True if the function is in the Cartesian coordinate system.'''
     answer = True
-    if ('r' in str(f)) or ('phi' in str(f)) or ('theta' in str(f)):
+    if ('radi' in str(f)) or ('phi' in str(f)) or ('theta' in str(f)):
         answer = False
     return answer
 
-#TODO: Fix this. Cannot use 'r' in str(f) because of rho
 def isCylindrical(f):
     '''Return True if the function is in the Cylindrical coordinate system.'''
     answer = True
-    if ('x' in str(f)) or ('y' in str(f)) or ('r' in str(f) or ('theta' in str(f))):
+    if ('x' in str(f)) or ('y' in str(f)) or ('radi' in str(f)) or ('theta' in str(f)):
         answer = False
     return answer
 
