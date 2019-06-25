@@ -24,9 +24,6 @@ scalar = getDotProduct(E, B)
 # Testing the getCrossProduct function
 cross = getCrossProduct(E, B)
 
-# Testing the getGradient function
-getGradient(f)
-
 P = np.array([2, 0, -1])
 Q = np.array([2, -1, 2])
 R = np.array([2, -3, 1])
@@ -43,8 +40,15 @@ rho, phi, z = symbols('rho phi z', real=True)
 y = phi*(rho**2) + rho*phi*z
 print(str(y))
 print(str(isCartesian(y)))
-
+print(str(isSpherical(y)))
+print(str(isCylindrical(y)))
+'''
 z = Symbol('z')
 z = sin(z)
 print(str(z))
 print(str(isCartesian(z)))
+'''
+# Testing the getGradient function
+#getGradient(f)
+#getGradient(z)
+getGradient(y)
