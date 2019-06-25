@@ -81,11 +81,23 @@ def getGradient(f):
     gradf = [diff(f, x), diff(f, y), diff(f, z)]
     print('The gradient of scalar field f is: ' + str(gradf))
 
-#TODO:
 def isCartesian(f):
-    '''Return True if the function is in the Cartesian system.'''
-    cartesian = True
-    #if ('r' not in str(f)) and ('phi' not in str(f)) and ('theta' not in str(f)):
-    if ('r' or 'phi' or 'theta' in str(f)):
-        cartesian = False
-    return cartesian
+    '''Return True if the function is in the Cartesian coordinate system.'''
+    answer = True
+    if ('r' in str(f)) or ('phi' in str(f)) or ('theta' in str(f)):
+        answer = False
+    return answer
+
+def isCylindrical(f):
+    '''Return True if the function is in the Cylindrical coordinate system.'''
+    answer = True
+    if ('x' in str(f)) or ('y' in str(f)) or ('r' in str(f) or ('theta' in str(f))):
+        answer = False
+    return answer
+
+def isSpherical(f):
+    '''Return True if the function is in the Sperical coordinate system.'''
+    answer = True
+    if ('x' in str(f)) or ('y' in str(f)) or ('z' in str(f) or ('rho' in str(f))):
+        answer = False
+    return answer
