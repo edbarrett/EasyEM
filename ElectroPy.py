@@ -5,22 +5,17 @@ the functions necessary for solving multiple types of problems in the area of
 electromagetics.
 
 # TODO:
-    Functions needed:
+    Future goals:
         - Curl
         - Conversion functions for coordinate systems. (cart2spher, cart2..)
-        -
+        - Fix symbols
     Currently working on:
-        - I am trying to find a better way to declare symbols for the
-          getDerivative and getPartialDerivative functions. Currently,
-          the symbols (ex. x, y, z) in the mathematical equations
-          must be declared twice. Once before declaring the equation
-          and once before using them inside of a method. I would like to only
-          declare them once if possible.
         - There might be a need to create an object for coordinate vectors.
           It may be easier to do thisVect.type() (or similar) to figure out
           which coordinate system it is in. Maybe the object could also hold
           a vector field representation as well? I've got to use my head...
-        -
+        - Completing the addition of sympy.abc
+        - Completing fromCart2Cyl
 Important Variables:
 
     Coordinate System
@@ -112,16 +107,13 @@ def isSpherical(f):
         answer = False
     return answer
 
-#TODO: THIS
 def fromCart2Cyl(v1):
     '''Return the 3x1 Cylindrical coordinates.'''
-    #x, y, z = symbols('x y z', real=True)
-    #rho, phi, z = symbols('rho phi z', real=True)
     v2 = np.array([[cos(phi), sin(phi), 0],
                     [-sin(phi), cos(phi), 0],
                     [ 0,0, 1]])
-    cylindricalVector = v2*v1
-    #print(cylindricalVector)
-
+    cylindricalVector = v2.dot(v1)
+    for n in range(3):
+        cylindricalVector[n,0] = cylindricalVector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
     print(cylindricalVector)
     return(cylindricalVector)
