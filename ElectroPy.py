@@ -120,7 +120,7 @@ def fromCart2Cyl(v1):
     v2 = np.array([[cos(phi), sin(phi), 0],
                     [-sin(phi), cos(phi), 0],
                     [ 0,0, 1]])
-    cylindricalVector = v2.dot(v1)
+    cylindricalVector = np.dot(v2, v1)
     for n in range(3):
         '''Substitute x & y with their cylindrical equivalent.'''
         cylindricalVector[n,0] = cylindricalVector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
