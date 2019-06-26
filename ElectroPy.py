@@ -73,18 +73,26 @@ def getCrossProduct(v1, v2):
 
 def getGradient(f):
     '''Return the gradient of one scalar field.'''
+
     if isCartesian(f):
-        x, y, z = symbols('x y z', real=True)
-        gradf = [diff(f, x), diff(f, y), diff(f, z)]
+        x, y, z = symbols('x y z')
+        gradf = np.array([diff(f, x), diff(f, y), diff(f, z)])
         print('The gradient of scalar field f is: ' + str(gradf))
     elif isCylindrical(f):
-        rho, phi, z = symbols('rho phi z', real=True)
-        gradf = [diff(f, rho), diff(f, phi), diff(f, z)]
+        rho, phi, z = symbols('rho phi z')
+        gradf = np.array([diff(f, rho), (1/rho)*diff(f, phi), diff(f, z)])
         print('The gradient of scalar field f is: ' + str(gradf))
     elif isSpherical(f):
-        radi, theta, phi = symbols('radi theta phi', real=True)
-        gradf = [diff(f, radi), diff(f, theta), diff(f, phi)]
+        radi, theta, phi = symbols('radi theta phi')
+        gradf = np.array([diff(f, radi), (1/radi)*diff(f, theta), (1/radi*sin(theta))*diff(f, phi)])
         print('The gradient of scalar field f is: ' + str(gradf))
+    else:
+        print('todo')
+    return gradf
+
+def getCurl():
+
+    print('todo')
 
 def isCartesian(f):
     '''Return True if the function is in the Cartesian coordinate system.'''
@@ -114,6 +122,7 @@ def fromCart2Cyl(v1):
                     [ 0,0, 1]])
     cylindricalVector = v2.dot(v1)
     for n in range(3):
+        '''Substitute x & y with their cylindrical equivalent.'''
         cylindricalVector[n,0] = cylindricalVector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
     print(cylindricalVector)
     return(cylindricalVector)
