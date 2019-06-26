@@ -50,6 +50,7 @@ Important Variables:
 '''
 
 from sympy import *
+from sympy.abc import x, y, z, theta, rho, phi
 import numpy as np
 
 def getDerivative(f, symbol):
@@ -111,5 +112,16 @@ def isSpherical(f):
         answer = False
     return answer
 
-def fromCart2Cyl():
+#TODO: THIS
+def fromCart2Cyl(v1):
     '''Return the 3x1 Cylindrical coordinates.'''
+    #x, y, z = symbols('x y z', real=True)
+    #rho, phi, z = symbols('rho phi z', real=True)
+    v2 = np.array([[cos(phi), sin(phi), 0],
+                    [-sin(phi), cos(phi), 0],
+                    [ 0,0, 1]])
+    cylindricalVector = v2*v1
+    #print(cylindricalVector)
+
+    print(cylindricalVector)
+    return(cylindricalVector)
