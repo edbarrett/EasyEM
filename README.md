@@ -1,20 +1,20 @@
-# ElectroPy
+# EasyEM
 
-ElectroPy is a Python package geared towards electromagnetic fields. The goal of this package is to make problem solving, simulation and modeling, and visualization easier.
+EasyEM is a Python package geared towards electromagnetic fields. The goal of this package is to make problem solving, simulation and modeling, and visualization easier.
 
 A few of the current operations include:
  - Perform basic mathematical operations common in electromagnetics.
  - Coordinate system conversions.
 
-## Using ElectroPy
+## Using EasyEM
 
-Currently, ElectroPy is still under construction. There is no release version, but feel free to install the files for use.
+Currently, EasyEM is still under construction. There is no release version, but feel free to install the files for use.
 
-ElectroPy is written for Python 3.x. There are no plans to make this package available to earlier versions.
+EasyEM is written for Python 3.x. There are no plans to make this package available to earlier versions.
 
 ### Dependencies
 
-The dependencies for ElectroPy are:
+The dependencies for EasyEM are:
 
  - numpy (Version 1.16+)
  - scipy (Version 1.4+)
