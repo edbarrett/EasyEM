@@ -5,6 +5,7 @@ This file may be moved eventually.
 '''
 
 from EasyEM import *
+from emconstants import *
 '''
 # Testing the getDerivative function
 x = Symbol('x')
@@ -58,8 +59,11 @@ y = phi*(rho**2) + rho*phi*z
 
 #getGradient(z)
 #getGradient(y)
-'''
+
 
 # Testing from Cart to Cylindrical
 v = np.array([[y], [x+z], [0]])
 fromCart2Cyl(v)
+'''
+
+print(str(k))
