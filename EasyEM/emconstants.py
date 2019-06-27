@@ -1,9 +1,13 @@
-'''Common consants.'''
+'''Common constants.
+c: Speed of light (meters/second)
+eps0: Permittivity of free space (Farads/meter)
+k: Proportionality constant
+
+'''
+from numpy import pi
 
 
-
-c = 299792458.
-mu0 = 4 * pi * 1e-7
-eps0 = 1. / (c**2 * mu0)
+c = 299792458
+eps0 = 8.854187817620389e-12
 h = 6.62606896e-34
-k = 1.3806504e-23
+k = 1/(4*pi*eps0)
