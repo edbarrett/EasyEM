@@ -9,7 +9,7 @@ Good Conductors ( sigma ~= inf; epsilon = epsilon0; mu = mur*mu0 or sigma >> ome
 
 omega is angular frequency of the wave.
 
-Important relationships to concider:
+Important relationships to consider:
 
         lambda = u*T
 
@@ -30,7 +30,12 @@ Important relationships to concider:
 
         T = 1 / f = 2*pi / omega
 
-
+#TODO:
+    Future goals:
+        - Graphing
+    Current task:
+        - Find a better design for the Wave class. I need to determine which attributes
+        are needed and which are fluff.
 """
 import numpy as np
 from numpy import pi
@@ -53,7 +58,6 @@ class Wave(object):
         A = 1
         beta = 0
         function = A*np.cos(omega*0 - beta*1)
-
 
 '''
     def getDirection(self):
