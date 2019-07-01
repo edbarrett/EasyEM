@@ -32,10 +32,34 @@ Important relationships to concider:
 
 
 """
+import numpy as np
+from numpy import pi
+from emconstants import *
+from sympy.abc import x, y, z, theta, rho, phi
 
 class Wave(object):
     '''Represents a wave in a specific medium.
 
-    attributes: function, direction, medium, omega, Amplitude, beta
+    Form: V = Acos((2*pi*freq)*t - beta*(direction))
+
+    attributes: function, direction, medium, omega, A (amplitude), beta, freq (frequency)
 
     '''
+    def __init__(self):
+        direction = x
+        medium = 'Free space'
+        freq = 60
+        omega = freq*2*pi
+        A = 1
+        beta = 0
+        function = A*np.cos(omega*0 - beta*1)
+
+
+'''
+    def getDirection(self):
+        \'''Print and return the direction of the wave.\'''
+        if self.medium is 'Free space':
+            if 'x' in str(self.function):
+                print('The wave is traveling in the x direction')
+                self.direction = x
+'''
