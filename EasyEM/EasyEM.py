@@ -101,6 +101,19 @@ def getCurl():
 
     print('todo')
 
+def getLineIntegral(f):
+    '''Return the line integral of a function of any coordinate system.'''
+
+    if isCartesian(f):
+        print('TODO')
+    elif isCylindrical(f):
+        print('TODO')
+    elif isSpherical(f):
+        print('TODO')
+    else
+        print('put error here')
+    return lineIntegral
+
 def isCartesian(f):
     '''Return True if the function is in the Cartesian coordinate system.'''
     answer = True
