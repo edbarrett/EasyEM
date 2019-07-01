@@ -7,6 +7,12 @@ electromagetics.
 # TODO:
     Future goals:
         - Curl
+        - Line integral
+        - Surface integral
+        - Volume Integral
+        - Divergence theorem
+        - Stokes theorem
+        - Laplacian of a scalar
         - Conversion functions for coordinate systems. (cart2spher, cart2..)
         - Fix symbols
     Currently working on:
@@ -45,6 +51,7 @@ Important Variables:
 '''
 
 from sympy import *
+from emconstants import *
 from sympy.abc import x, y, z, theta, rho, phi
 import numpy as np
 
@@ -126,3 +133,9 @@ def fromCart2Cyl(v1):
         cylindricalVector[n,0] = cylindricalVector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
     print(cylindricalVector)
     return(cylindricalVector)
+
+def calculateBeta(frequency, medium):
+    '''Returns the phase contant, beta.'''
+    if medium is "Free space":
+        b = frequency/c
+    return b
