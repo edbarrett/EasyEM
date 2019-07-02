@@ -101,18 +101,16 @@ def getCurl():
 
     print('todo')
 
-def getLineIntegral(f):
-    '''Return the line integral of a function of any coordinate system.'''
+def getDefIntegral(f, a, b, d):
+    '''Return the definite integral of a function of any coordinate system.
 
-    if isCartesian(f):
-        print('TODO')
-    elif isCylindrical(f):
-        print('TODO')
-    elif isSpherical(f):
-        print('TODO')
-    else
-        print('put error here')
-    return lineIntegral
+    params: f (function), a (lower bound), b (upper bound), d (differential i.e x, y, z)
+    '''
+
+    integral = integrate(f, (d, a, b))
+
+    print('The output of the integragtion is: ' + str(integral))
+    return integral
 
 def isCartesian(f):
     '''Return True if the function is in the Cartesian coordinate system.'''
