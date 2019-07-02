@@ -56,15 +56,14 @@ from sympy.abc import x, y, z, theta, rho, phi
 import numpy as np
 
 def getDerivative(f, symbol):
-    ''' Return the derivative of the function f with respect to symbol.'''
+    '''Return the derivative of the function f with respect to symbol.'''
     f_prime = f.diff(symbol)
     print(f_prime)
     return f_prime
 
-def getPartialDerivative(f):
-    ''' Return the partial derivative of the function f with respect to symbol.'''
-    x, y, z = symbols('x y z', real=True)
-    f_prime = diff(f, x)
+def getPartialDerivative(f, symbol):
+    '''Return the partial derivative of the function f with respect to symbol.'''
+    f_prime = diff(f, symbol)
     print(f_prime)
     return f_prime
 
