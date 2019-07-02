@@ -82,14 +82,17 @@ def getGradient(f):
     '''Return the gradient of one scalar field.'''
 
     if isCartesian(f):
+        #print('Cart!')
         x, y, z = symbols('x y z')
         gradf = np.array([diff(f, x), diff(f, y), diff(f, z)])
         print('The gradient of scalar field f is: ' + str(gradf))
     elif isCylindrical(f):
+        #print('Cyl!')
         rho, phi, z = symbols('rho phi z')
         gradf = np.array([diff(f, rho), (1/rho)*diff(f, phi), diff(f, z)])
         print('The gradient of scalar field f is: ' + str(gradf))
     elif isSpherical(f):
+        #print('Cyl!')
         radi, theta, phi = symbols('radi theta phi')
         gradf = np.array([diff(f, radi), (1/radi)*diff(f, theta), (1/radi*sin(theta))*diff(f, phi)])
         print('The gradient of scalar field f is: ' + str(gradf))
@@ -115,7 +118,7 @@ def getDefIntegral(f, a, b, d):
 def isCartesian(f):
     '''Return True if the function is in the Cartesian coordinate system.'''
     answer = True
-    if ('radi' in str(f)) or ('phi' in str(f)) or ('theta' in str(f)):
+    if ('radi' in str(f)) or ('rho' in str(f)) or ('phi' in str(f)) or ('theta' in str(f)):
         answer = False
     return answer
 
