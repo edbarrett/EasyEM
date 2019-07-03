@@ -49,106 +49,113 @@ Important Variables:
         - J = the current density
 
 '''
-
-from sympy import *
-from emconstants import *
-from sympy.abc import x, y, z, theta, rho, phi
 import numpy as np
+from sympy import diff, integrate, Symbol, symbols, cos, sin
+from sympy.abc import x, y, z, theta, rho, phi
+radi = Symbol('radi')
 
-def getDerivative(f, symbol):
+
+def get_derivative(function, symbol):
     '''Return the derivative of the function f with respect to symbol.'''
-    f_prime = f.diff(symbol)
+    f_prime = diff(function, symbol)
     print(f_prime)
     return f_prime
 
-def getPartialDerivative(f, symbol):
+def get_partial_derivative(function, symbol):
     '''Return the partial derivative of the function f with respect to symbol.'''
-    f_prime = diff(f, symbol)
+    f_prime = diff(function, symbol)
     print(f_prime)
     return f_prime
 
-def getDotProduct(v1, v2):
+def get_dot_product(v_1, v_2):
     '''Return the dot product of two equal-length vectors.'''
-    print('Dot product of the two vectors: ' + str(np.dot(v1, v2)))
-    return np.dot(v1, v2)
+    print('Dot product of the two vectors: ' + str(np.dot(v_1, v_2)))
+    return np.dot(v_1, v_2)
 
-def getCrossProduct(v1, v2):
+def get_cross_product(v_1, v_2):
     '''Return the cross product of two equal-length vectors of size 2 or 3.'''
-    print('Cross product of the two vectors: ' + str(np.cross(v1, v2)))
-    return np.cross(v1, v2)
+    print('Cross product of the two vectors: ' + str(np.cross(v_1, v_2)))
+    return np.cross(v_1, v_2)
 
-def getGradient(f):
+def get_gradient(function):
     '''Return the gradient of one scalar field.'''
 
-    if isCartesian(f):
+    if is_cartesian(function):
         #print('Cart!')
         x, y, z = symbols('x y z')
-        gradf = np.array([diff(f, x), diff(f, y), diff(f, z)])
-        print('The gradient of scalar field f is: ' + str(gradf))
-    elif isCylindrical(f):
+        gradient = np.array([diff(function, x), diff(function, y), diff(function, z)])
+        print('The gradient of the scalar field is: ' + str(gradient))
+    elif is_cylindrical(function):
         #print('Cyl!')
         rho, phi, z = symbols('rho phi z')
-        gradf = np.array([diff(f, rho), (1/rho)*diff(f, phi), diff(f, z)])
-        print('The gradient of scalar field f is: ' + str(gradf))
-    elif isSpherical(f):
+        gradient = np.array([diff(function, rho), (1/rho)*diff(function, phi), diff(function, z)])
+        print('The gradient of the scalar field is: ' + str(gradient))
+    elif is_spherical(function):
         #print('Cyl!')
         radi, theta, phi = symbols('radi theta phi')
-        gradf = np.array([diff(f, radi), (1/radi)*diff(f, theta), (1/radi*sin(theta))*diff(f, phi)])
-        print('The gradient of scalar field f is: ' + str(gradf))
+        gradient = np.array([diff(function, radi), (1/radi)*diff(function, theta), (1/radi*sin(theta))*diff(function, phi)])
+        print('The gradient of the scalar field is: ' + str(gradient))
     else:
         print('todo')
-    return gradf
+    return gradient
 
-def getCurl():
+def get_divergence(v_1):
+    '''Return the divergence of a vector.'''
+    if is_cartesian(v_1):
+        #print('Cart!')
+        x, y, z = symbols('x y z')
+        div = get_partial_derivative(v_1[0], x) + get_partial_derivative(v_1[1], y) + get_partial_derivative(v_1[2], z)
+    elif is_cylindrical(v_1):
+        #print('Cyl!')
+        rho, phi, z = symbols('rho phi z')
+        div = (1/rho)*get_partial_derivative(rho*v_1[0], rho) + (1/rho)*get_partial_derivative(v_1[1], phi) + get_partial_derivative(v_1[2], z)
+    elif is_spherical(v_1):
+        #print('Cyl!')
+        radi, theta, phi = symbols('radi theta phi')
+        div = (1/(radi**2))*get_partial_derivative((radi**2)*v_1[0], radi) + (1/(radi*sin(theta)))*get_partial_derivative(sin(theta)*v_1[1], theta) + (1/(radi*sin(theta)))*get_partial_derivative(v_1[2], phi)
+    else:
+        print('todo')
+    print(str(div))
+    return div
 
+def get_curl():
+    '''Return the Curl of a vector.'''
     print('todo')
 
-def getDefIntegral(f, a, b, d):
-    '''Return the definite integral of a function of any coordinate system.
-
-    params: f (function), a (lower bound), b (upper bound), d (differential i.e x, y, z)
-    '''
-
-    integral = integrate(f, (d, a, b))
+def get_def_integral(function, lower_bound, upper_bound, symbol):
+    '''Return the definite integral of a function of any coordinate system.'''
+    integral = integrate(function, (symbol, lower_bound, upper_bound))
 
     print('The output of the integragtion is: ' + str(integral))
     return integral
 
-def isCartesian(f):
-    '''Return True if the function is in the Cartesian coordinate system.'''
+def is_cartesian(function):
+    '''Return True if the function or vector is in the Cartesian coordinate system.'''
     answer = True
-    if ('radi' in str(f)) or ('rho' in str(f)) or ('phi' in str(f)) or ('theta' in str(f)):
+    if ('radi' in str(function)) or ('rho' in str(function)) or ('phi' in str(function)) or ('theta' in str(function)):
         answer = False
     return answer
 
-def isCylindrical(f):
-    '''Return True if the function is in the Cylindrical coordinate system.'''
+def is_cylindrical(function):
+    '''Return True if the function or vector is in the Cylindrical coordinate system.'''
     answer = True
-    if ('x' in str(f)) or ('y' in str(f)) or ('radi' in str(f)) or ('theta' in str(f)):
+    if ('x' in str(function)) or ('y' in str(function)) or ('radi' in str(function)) or ('theta' in str(function)):
         answer = False
     return answer
 
-def isSpherical(f):
-    '''Return True if the function is in the Sperical coordinate system.'''
+def is_spherical(function):
+    '''Return True if the function or vector is in the Sperical coordinate system.'''
     answer = True
-    if ('x' in str(f)) or ('y' in str(f)) or ('z' in str(f) or ('rho' in str(f))):
+    if ('x' in str(function)) or ('y' in str(function)) or ('z' in str(function) or ('rho' in str(function))):
         answer = False
     return answer
 
-def fromCart2Cyl(v1):
+def from_cart2cyl(v_1):
     '''Return the 3x1 Cylindrical coordinates.'''
-    v2 = np.array([[cos(phi), sin(phi), 0],
-                    [-sin(phi), cos(phi), 0],
-                    [ 0,0, 1]])
-    cylindricalVector = np.dot(v2, v1)
+    v_2 = np.array([[cos(phi), sin(phi), 0], [-sin(phi), cos(phi), 0], [0, 0, 1]])
+    cylindrical_vector = np.dot(v_2, v_1)
     for n in range(3):
         '''Substitute x & y with their cylindrical equivalent.'''
-        cylindricalVector[n,0] = cylindricalVector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
-    print(cylindricalVector)
-    return(cylindricalVector)
-
-def calculateBeta(frequency, medium):
-    '''Returns the phase contant, beta.'''
-    if medium is "Free space":
-        b = frequency/c
-    return b
+        cylindrical_vector[n, 0] = cylindrical_vector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
+    print(cylindrical_vector)
+    return cylindrical_vector
