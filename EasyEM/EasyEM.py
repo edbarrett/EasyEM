@@ -13,12 +13,7 @@
         - Conversion functions for coordinate systems. (cart2spher, cart2..)
         - Fix symbols
     Currently working on:
-        - There might be a need to create an object for coordinate vectors.
-          It may be easier to do thisVect.type() (or similar) to figure out
-          which coordinate system it is in. Maybe the object could also hold
-          a vector field representation as well? I've got to use my head...
-        - Completing the addition of sympy.abc
-        - Completing fromCart2Cyl
+        - Curl
 Important Variables:
 
     Coordinate System
