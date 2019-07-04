@@ -3,7 +3,7 @@
 EasyEM is a Python package geared towards electromagnetic fields. The goal of this package is to make problem solving, simulation and modeling, and visualization easier.
 
 A few of the current operations include:
- - Perform basic mathematical operations common in electromagnetics.
+ - Perform mathematical operations common in electromagnetics.
  - Coordinate system conversions.
 
 ## Using EasyEM
