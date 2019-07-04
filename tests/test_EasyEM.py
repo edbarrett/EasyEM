@@ -108,16 +108,20 @@ class EasyEMFuncTests(unittest.TestCase):
         self.assertEqual(em.is_spherical(function), True)
 
     def test_from_cart2cyl(self):
-        v = np.array([[y], [x+z], [0]])
-        self.assertEqual(em.from_cart2cyl(v)[0, 0], rho*sin(phi)*cos(phi) + (rho*cos(phi) + z)*sin(phi))
-        self.assertEqual(em.from_cart2cyl(v)[1, 0], -rho*sin(phi)**2 + (rho*cos(phi) + z)*cos(phi))
-        self.assertEqual(em.from_cart2cyl(v)[2, 0], 0)
+        vector = np.array([[y], [x+z], [0]])
+        self.assertEqual(em.from_cart2cyl(vector)[0, 0], rho*sin(phi)*cos(phi) + (rho*cos(phi) + z)*sin(phi))
+        self.assertEqual(em.from_cart2cyl(vector)[1, 0], -rho*sin(phi)**2 + (rho*cos(phi) + z)*cos(phi))
+        self.assertEqual(em.from_cart2cyl(vector)[2, 0], 0)
 
     def test_from_cart2sph(self):
-        v = np.array([[y], [x+z], [0]])
-        self.assertEqual(em.from_cart2sph(v)[0, 0], radi*sin(phi)*sin(theta)**2*cos(phi) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*sin(phi)*sin(theta))
-        self.assertEqual(em.from_cart2sph(v)[1, 0], radi*sin(phi)*sin(theta)*cos(phi)*cos(theta) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*sin(phi)*cos(theta))
-        self.assertEqual(em.from_cart2sph(v)[2, 0], -radi*sin(phi)**2*sin(theta) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*cos(phi))
+        vector = np.array([[y], [x+z], [0]])
+        self.assertEqual(em.from_cart2sph(vector)[0, 0], radi*sin(phi)*sin(theta)**2*cos(phi) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*sin(phi)*sin(theta))
+        self.assertEqual(em.from_cart2sph(vector)[1, 0], radi*sin(phi)*sin(theta)*cos(phi)*cos(theta) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*sin(phi)*cos(theta))
+        self.assertEqual(em.from_cart2sph(vector)[2, 0], -radi*sin(phi)**2*sin(theta) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*cos(phi))
+
+    def test_get_def_integral(self):
+        function = x**3 + x**2 + 2*x + 1
+        self.assertEqual(em.get_def_integral(function, 0, 2, x), 38/3)
 
 if __name__ == '__main__':
     unittest.main()
