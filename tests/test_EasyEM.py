@@ -1,13 +1,10 @@
-'''This is the unit test suite for ElectroPy.py.
-
-Need to set up as a package first.
-'''
+'''This is the unit test suite for EasyEM.py.'''
 
 import unittest
 import EasyEM as em
 import numpy as np
 from sympy.abc import x, y, z, theta, rho, phi
-from sympy import Symbol
+from sympy import Symbol, sin, cos
 radi = Symbol('radi')
 
 class EasyEMFuncTests(unittest.TestCase):
@@ -109,6 +106,18 @@ class EasyEMFuncTests(unittest.TestCase):
     def test_is_spherical_all(self):
         function = radi**2 + 2*phi + theta*radi
         self.assertEqual(em.is_spherical(function), True)
+
+    def test_from_cart2cyl(self):
+        v = np.array([[y], [x+z], [0]])
+        self.assertEqual(em.from_cart2cyl(v)[0, 0], rho*sin(phi)*cos(phi) + (rho*cos(phi) + z)*sin(phi))
+        self.assertEqual(em.from_cart2cyl(v)[1, 0], -rho*sin(phi)**2 + (rho*cos(phi) + z)*cos(phi))
+        self.assertEqual(em.from_cart2cyl(v)[2, 0], 0)
+
+    def test_from_cart2sph(self):
+        v = np.array([[y], [x+z], [0]])
+        self.assertEqual(em.from_cart2sph(v)[0, 0], radi*sin(phi)*sin(theta)**2*cos(phi) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*sin(phi)*sin(theta))
+        self.assertEqual(em.from_cart2sph(v)[1, 0], radi*sin(phi)*sin(theta)*cos(phi)*cos(theta) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*sin(phi)*cos(theta))
+        self.assertEqual(em.from_cart2sph(v)[2, 0], -radi*sin(phi)**2*sin(theta) + (radi*sin(theta)*cos(phi) + radi*cos(theta))*cos(phi))
 
 if __name__ == '__main__':
     unittest.main()
