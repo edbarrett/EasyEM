@@ -4,7 +4,7 @@ import unittest
 import EasyEM as em
 import numpy as np
 from sympy.abc import x, y, z, theta, rho, phi
-from sympy import Symbol, sin, cos
+from sympy import Symbol, sin, cos, cosh
 radi = Symbol('radi')
 
 class EasyEMFuncTests(unittest.TestCase):
@@ -134,6 +134,18 @@ class EasyEMFuncTests(unittest.TestCase):
     def test_get_divergence_spherical(self):
         vector = np.array([(1/radi**2)*cos(theta), radi*sin(theta)*cos(phi), cos(theta)])
         self.assertEqual(em.get_divergence(vector), 2*cos(theta)*cos(phi))
+
+    def test_get_gradient_cartesian(self):
+        function = (x**2)*y + x*y*z
+        self.assertEqual(em.get_gradient(function)[0], 2*x*y + y*z)
+        self.assertEqual(em.get_gradient(function)[1], x**2 + x*z)
+        self.assertEqual(em.get_gradient(function)[2], x*y)
+
+    def test_get_gradient_cylindrical(self):
+        function = rho*z*sin(phi) + (z**2)*(cos(phi)**2) + rho**2
+        self.assertEqual(em.get_gradient(function)[0], 2*rho + z*sin(phi))
+        self.assertEqual(em.get_gradient(function)[1], (rho*z*cos(phi) - 2*z**2*sin(phi)*cos(phi))/rho)
+        self.assertEqual(em.get_gradient(function)[2], rho*sin(phi) + 2*z*cos(phi)**2)
 
 if __name__ == '__main__':
     unittest.main()
