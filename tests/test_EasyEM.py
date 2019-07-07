@@ -123,8 +123,16 @@ class EasyEMFuncTests(unittest.TestCase):
         function = x**3 + x**2 + 2*x + 1
         self.assertEqual(em.get_def_integral(function, 0, 2, x), 38/3)
 
+    def test_get_divergence_cartesian(self):
+        vector = np.array([(x**2)*y*z, 0, x*z])
+        self.assertEqual(em.get_divergence(vector), 2*x*y*z + x)
+
+    def test_get_divergence_cylindrical(self):
+        vector = np.array([rho*sin(phi), (rho**2)*z, z*cos(phi)])
+        self.assertEqual(em.get_divergence(vector), 2*sin(phi) + cos(phi))
+
     def test_get_divergence_spherical(self):
-        vector = np.array([(1/radi**2)*cos(theta), radi*sin(theta)*cos(phi), cos(phi)])
+        vector = np.array([(1/radi**2)*cos(theta), radi*sin(theta)*cos(phi), cos(theta)])
         self.assertEqual(em.get_divergence(vector), 2*cos(theta)*cos(phi))
 
 if __name__ == '__main__':
