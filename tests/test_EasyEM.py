@@ -123,5 +123,9 @@ class EasyEMFuncTests(unittest.TestCase):
         function = x**3 + x**2 + 2*x + 1
         self.assertEqual(em.get_def_integral(function, 0, 2, x), 38/3)
 
+    def test_get_divergence_spherical(self):
+        vector = np.array([(1/radi**2)*cos(theta), radi*sin(theta)*cos(phi), cos(phi)])
+        self.assertEqual(em.get_divergence(vector), 2*cos(theta)*cos(phi))
+
 if __name__ == '__main__':
     unittest.main()
