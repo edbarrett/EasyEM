@@ -7,7 +7,6 @@
         - Line integral
         - Surface integral
         - Volume Integral
-        - Divergence theorem
         - Stokes theorem
         - Laplacian of a scalar
         - Conversion functions for coordinate systems. (cart2spher, cart2..)
@@ -42,7 +41,8 @@ Important Variables:
 
 '''
 import numpy as np
-from sympy import diff, integrate, Symbol, symbols, cos, sin
+from math import sqrt, pi
+from sympy import diff, integrate, Symbol, symbols, cos, sin, acos
 from sympy.abc import x, y, z, theta, rho, phi
 radi = Symbol('radi')
 
@@ -105,6 +105,25 @@ def get_curl():
     '''Return the Curl of a vector.'''
     print('todo')
 
+def from_radian_2degree(radian):
+    return radian*(180/pi)
+
+def from_degree_2radian(degree):
+    return degree*(pi/180)
+
+def get_vector_magnitude(v_1):
+    '''Return the magnitude of a 1x3 vector.'''
+    sum = 0
+    for number in range(3):
+        sum += v_1[number]**2
+    magnitude = sqrt(sum)
+    return magnitude
+
+def get_angle_between(v_1, v_2):
+    '''Return the angle betweem two vectors.'''
+    angle = acos(get_dot_product(v_1, v_2)/(get_vector_magnitude(v_1)*get_vector_magnitude(v_2)))
+    return from_radian_2degree(angle)
+
 def get_def_integral(function, lower_bound, upper_bound, symbol):
     '''Return the definite integral of a function of any coordinate system.'''
     integral = integrate(function, (symbol, lower_bound, upper_bound))
@@ -147,4 +166,13 @@ def from_cart2sph(v_1):
     for n in range(3):
         '''Substitute x & y with their spherical equivalent.'''
         spherical_vector[n, 0] = spherical_vector[n, 0].subs({x: radi*sin(theta)*cos(phi), y: radi*sin(theta)*sin(phi), z: radi*cos(theta)})
+    return spherical_vector
+
+def from_cyl2cart(v_1):
+    '''Return the 3x1 cartesian coordinates.'''
+    v_2 = np.array([[cos(phi), sin(phi), 0], [-sin(phi), cos(phi), 0], [0, 0, 1]])
+    spherical_vector = np.dot(v_2, v_1)
+    for n in range(3):
+        '''Substitute x & y with their spherical equivalent.'''
+        spherical_vector[n, 0] = cartesian_vector[n, 0].subs({x: radi*sin(theta)*cos(phi), y: radi*sin(theta)*sin(phi), z: radi*cos(theta)})
     return spherical_vector
