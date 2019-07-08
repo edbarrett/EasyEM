@@ -78,7 +78,7 @@ def get_gradient(function):
     elif is_spherical(function):
         #print('Cyl!')
         radi, theta, phi = symbols('radi theta phi')
-        gradient = np.array([diff(function, radi), (1/radi)*diff(function, theta), (1/radi*sin(theta))*diff(function, phi)])
+        gradient = np.array([diff(function, radi), (1/radi)*diff(function, theta), (1/(radi*sin(theta)))*diff(function, phi)])
     else:
         print('todo')
     return gradient
@@ -122,7 +122,7 @@ def get_vector_magnitude(v_1):
 def get_angle_between(v_1, v_2):
     '''Return the angle betweem two vectors.'''
     angle = acos(get_dot_product(v_1, v_2)/(get_vector_magnitude(v_1)*get_vector_magnitude(v_2)))
-    return from_radian_2degree(angle)
+    return round(from_radian_2degree(angle), 2)
 
 def get_def_integral(function, lower_bound, upper_bound, symbol):
     '''Return the definite integral of a function of any coordinate system.'''
