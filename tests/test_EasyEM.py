@@ -147,5 +147,16 @@ class EasyEMFuncTests(unittest.TestCase):
         self.assertEqual(em.get_gradient(function)[1], (rho*z*cos(phi) - 2*z**2*sin(phi)*cos(phi))/rho)
         self.assertEqual(em.get_gradient(function)[2], rho*sin(phi) + 2*z*cos(phi)**2)
 
+    def test_get_gradient_spherical(self):
+        function = 10*radi*(sin(theta)**2)*cos(phi)
+        self.assertEqual(em.get_gradient(function)[0], 10*(sin(theta)**2)*cos(phi))
+        self.assertEqual(em.get_gradient(function)[1], 20*sin(theta)*cos(phi)*cos(theta))
+        self.assertEqual(em.get_gradient(function)[2], -10*sin(phi)*sin(theta))
+
+    def test_get_angle_between(self):
+        vector_1 = np.array([3, 4, 1])
+        vector_2 = np.array([0, 2, -5])
+        self.assertEqual(em.get_angle_between(vector_1, vector_2), 83.73)
+
 if __name__ == '__main__':
     unittest.main()
