@@ -41,8 +41,8 @@ Important Variables:
 
 '''
 import numpy as np
-from math import sqrt, pi
-from sympy import diff, integrate, Symbol, symbols, cos, sin, acos
+import math
+from sympy import diff, integrate, sqrt, Symbol, symbols, cos, sin, acos, atan
 from sympy.abc import x, y, z, theta, rho, phi
 radi = Symbol('radi')
 
@@ -52,18 +52,22 @@ def get_derivative(function, symbol):
     f_prime = diff(function, symbol)
     return f_prime
 
+
 def get_partial_derivative(function, symbol):
     '''Return the partial derivative of the function with respect to symbol.'''
     f_prime = diff(function, symbol)
     return f_prime
 
+
 def get_dot_product(v_1, v_2):
     '''Return the dot product of two equal-length vectors.'''
     return np.dot(v_1, v_2)
 
+
 def get_cross_product(v_1, v_2):
     '''Return the cross product of two equal-length vectors of size 2 or 3.'''
     return np.cross(v_1, v_2)
+
 
 def get_gradient(function):
     '''Return the gradient of one scalar field.'''
@@ -78,10 +82,12 @@ def get_gradient(function):
     elif is_spherical(function):
         #print('Cyl!')
         radi, theta, phi = symbols('radi theta phi')
-        gradient = np.array([diff(function, radi), (1/radi)*diff(function, theta), (1/(radi*sin(theta)))*diff(function, phi)])
+        gradient = np.array([diff(function, radi), (1/radi)*diff(function, theta), (1/(radi*sin(theta)))*diff(function,
+                                                                                                              phi)])
     else:
         print('todo')
     return gradient
+
 
 def get_divergence(v_1):
     '''Return the divergence of a vector.'''
@@ -92,42 +98,52 @@ def get_divergence(v_1):
     elif is_cylindrical(v_1):
         #print('Cyl!')
         rho, phi, z = symbols('rho phi z')
-        div = (1/rho)*get_partial_derivative(rho*v_1[0], rho) + (1/rho)*get_partial_derivative(v_1[1], phi) + get_partial_derivative(v_1[2], z)
+        div = (1/rho)*get_partial_derivative(rho*v_1[0], rho) + (1/rho)*get_partial_derivative(v_1[1], phi) + \
+              get_partial_derivative(v_1[2], z)
     elif is_spherical(v_1):
         #print('Cyl!')
         radi, theta, phi = symbols('radi theta phi')
-        div = (1/(radi**2))*get_partial_derivative((radi**2)*v_1[0], radi) + (1/(radi*sin(theta)))*get_partial_derivative(sin(theta)*v_1[1], theta) + (1/(radi*sin(theta)))*get_partial_derivative(v_1[2], phi)
+        div = (1/(radi**2))*get_partial_derivative((radi**2)*v_1[0], radi) + (1/(radi*sin(theta)))*\
+              get_partial_derivative(sin(theta)*v_1[1], theta) + (1/(radi*sin(theta)))*get_partial_derivative(v_1[2],
+                                                                                                              phi)
     else:
         print('todo')
     return div
+
 
 def get_curl():
     '''Return the Curl of a vector.'''
     print('todo')
 
+
 def from_radian_2degree(radian):
-    return radian*(180/pi)
+    return radian*(180/math.pi)
+
 
 def from_degree_2radian(degree):
-    return degree*(pi/180)
+    return degree*(math.pi/180)
+
 
 def get_vector_magnitude(v_1):
     '''Return the magnitude of a 1x3 vector.'''
     sum = 0
     for number in range(3):
         sum += v_1[number]**2
-    magnitude = sqrt(sum)
+    magnitude = math.sqrt(sum)
     return magnitude
+
 
 def get_angle_between(v_1, v_2):
     '''Return the angle betweem two vectors.'''
     angle = acos(get_dot_product(v_1, v_2)/(get_vector_magnitude(v_1)*get_vector_magnitude(v_2)))
     return round(from_radian_2degree(angle), 2)
 
+
 def get_def_integral(function, lower_bound, upper_bound, symbol):
     '''Return the definite integral of a function of any coordinate system.'''
     integral = integrate(function, (symbol, lower_bound, upper_bound))
     return integral
+
 
 def is_cartesian(function):
     '''Return True if the function or vector is in the cartesian coordinate system.'''
@@ -136,12 +152,14 @@ def is_cartesian(function):
         answer = False
     return answer
 
+
 def is_cylindrical(function):
     '''Return True if the function or vector is in the cylindrical coordinate system.'''
     answer = True
     if ('x' in str(function)) or ('y' in str(function)) or ('radi' in str(function)) or ('theta' in str(function)):
         answer = False
     return answer
+
 
 def is_spherical(function):
     '''Return True if the function or vector is in the spherical coordinate system.'''
@@ -150,29 +168,55 @@ def is_spherical(function):
         answer = False
     return answer
 
+
 def from_cart2cyl(v_1):
     '''Return the 3x1 cylindrical coordinates.'''
-    v_2 = np.array([[cos(phi), sin(phi), 0], [-sin(phi), cos(phi), 0], [0, 0, 1]])
+    v_2 = np.array([[cos(phi), sin(phi), 0],
+                    [-sin(phi), cos(phi), 0],
+                    [0, 0, 1]])
     cylindrical_vector = np.dot(v_2, v_1)
     for n in range(3):
         '''Substitute x & y with their cylindrical equivalent.'''
         cylindrical_vector[n, 0] = cylindrical_vector[n, 0].subs({x: rho*cos(phi), y: rho*sin(phi)})
     return cylindrical_vector
 
+
 def from_cart2sph(v_1):
     '''Return the 3x1 spherical coordinates.'''
-    v_2 = np.array([[sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)], [cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], [-sin(phi), cos(phi), 0]])
+    v_2 = np.array([[sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)],
+                    [cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)],
+                    [-sin(phi), cos(phi), 0]])
     spherical_vector = np.dot(v_2, v_1)
     for n in range(3):
         '''Substitute x & y with their spherical equivalent.'''
-        spherical_vector[n, 0] = spherical_vector[n, 0].subs({x: radi*sin(theta)*cos(phi), y: radi*sin(theta)*sin(phi), z: radi*cos(theta)})
+        spherical_vector[n, 0] = spherical_vector[n, 0].subs({x: radi*sin(theta)*cos(phi), y: radi*sin(theta)*sin(phi),
+                                                              z: radi*cos(theta)})
     return spherical_vector
+
 
 def from_cyl2cart(v_1):
     '''Return the 3x1 cartesian coordinates.'''
-    v_2 = np.array([[cos(phi), sin(phi), 0], [-sin(phi), cos(phi), 0], [0, 0, 1]])
-    spherical_vector = np.dot(v_2, v_1)
+    v_2 = np.array([[cos(phi), sin(phi), 0],
+                    [-sin(phi), cos(phi), 0],
+                    [0, 0, 1]])
+    cartesian_vector = np.dot(v_2, v_1)
     for n in range(3):
         '''Substitute x & y with their spherical equivalent.'''
-        spherical_vector[n, 0] = cartesian_vector[n, 0].subs({x: radi*sin(theta)*cos(phi), y: radi*sin(theta)*sin(phi), z: radi*cos(theta)})
-    return spherical_vector
+        cartesian_vector[n, 0] = cartesian_vector[n, 0].subs({x: radi*sin(theta)*cos(phi), y: radi*sin(theta)*sin(phi),
+                                                              z: radi*cos(theta)})
+    return cartesian_vector
+
+
+def from_sph2cart(v_1):
+    '''Return the 3x1 cartesian coordinates.'''
+    v_2 = np.array([[sin(theta)*cos(phi), cos(phi)*cos(theta), -sin(phi)],
+                    [sin(theta)*sin(phi), cos(theta)*sin(phi), cos(phi)],
+                    [cos(theta), -sin(theta), 0]])
+    cartesian_vector = np.dot(v_2, v_1)
+    for n in range(3):
+        '''Substitute x & y with their spherical equivalent.'''
+        cartesian_vector[n, 0] = cartesian_vector[n, 0].subs({radi: sqrt(x**2 + y**2 + z**2),
+                                                              theta: atan(sqrt(x**2 + y**2)/z),
+                                                              phi: atan(y/x)})
+    return cartesian_vector
+
