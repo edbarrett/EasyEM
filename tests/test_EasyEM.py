@@ -158,5 +158,11 @@ class EasyEMFuncTests(unittest.TestCase):
         vector_2 = np.array([0, 2, -5])
         self.assertEqual(em.get_angle_between(vector_1, vector_2), 83.73)
 
+    def test_get_curl_cartesian(self):
+        vector_1 = np.array([(x**2)*y*z, 0, x*z])
+        self.assertEqual(em.get_curl(vector_1)[0, 0], 0)
+        self.assertEqual(em.get_curl(vector_1)[1, 0], x**2*y - z)
+        self.assertEqual(em.get_curl(vector_1)[2, 0], -x**2*z)
+
 if __name__ == '__main__':
     unittest.main()
