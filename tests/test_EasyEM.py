@@ -164,5 +164,11 @@ class EasyEMFuncTests(unittest.TestCase):
         self.assertEqual(em.get_curl(vector_1)[1, 0], x**2*y - z)
         self.assertEqual(em.get_curl(vector_1)[2, 0], -x**2*z)
 
+    def test_get_curl_cylindrical(self):
+        vector_1 = np.array([rho*sin(phi), (rho**2)*z, z*cos(phi)])
+        self.assertEqual(em.get_curl(vector_1)[0, 0], -rho**2 - z*sin(phi)/rho)
+        self.assertEqual(em.get_curl(vector_1)[1, 0], 0)
+        self.assertEqual(em.get_curl(vector_1)[2, 0], (3*rho**2*z - rho*cos(phi))/rho)
+
 if __name__ == '__main__':
     unittest.main()
