@@ -170,5 +170,11 @@ class EasyEMFuncTests(unittest.TestCase):
         self.assertEqual(em.get_curl(vector_1)[1, 0], 0)
         self.assertEqual(em.get_curl(vector_1)[2, 0], (3*rho**2*z - rho*cos(phi))/rho)
 
+    def test_get_curl_spherical(self):
+        vector_1 = np.array([(1/radi**2)*cos(theta), radi*sin(theta)*cos(phi), cos(theta)])
+        self.assertEqual(em.get_curl(vector_1)[0, 0], (radi*sin(phi)*sin(theta) - sin(theta)**2 + cos(theta)**2)/(radi*sin(theta)))
+        self.assertEqual(em.get_curl(vector_1)[1, 0], -cos(theta)/radi)
+        self.assertEqual(em.get_curl(vector_1)[2, 0], (2*radi*sin(theta)*cos(phi) + sin(theta)/radi**2)/radi)
+
 if __name__ == '__main__':
     unittest.main()
