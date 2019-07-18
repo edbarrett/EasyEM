@@ -72,16 +72,10 @@ def get_cross_product(v_1, v_2):
 def get_gradient(function):
     '''Return the gradient of one scalar field.'''
     if is_cartesian(function):
-        #print('Cart!')
-        x, y, z = symbols('x y z')
         gradient = np.array([diff(function, x), diff(function, y), diff(function, z)])
     elif is_cylindrical(function):
-        #print('Cyl!')
-        rho, phi, z = symbols('rho phi z')
         gradient = np.array([diff(function, rho), (1/rho)*diff(function, phi), diff(function, z)])
     elif is_spherical(function):
-        #print('Cyl!')
-        radi, theta, phi = symbols('radi theta phi')
         gradient = np.array([diff(function, radi), (1/radi)*diff(function, theta), (1/(radi*sin(theta)))*diff(function,
                                                                                                               phi)])
     else:
@@ -92,17 +86,11 @@ def get_gradient(function):
 def get_divergence(v_1):
     '''Return the divergence of a vector.'''
     if is_cartesian(v_1):
-        #print('Cart!')
-        x, y, z = symbols('x y z')
         div = get_partial_derivative(v_1[0], x) + get_partial_derivative(v_1[1], y) + get_partial_derivative(v_1[2], z)
     elif is_cylindrical(v_1):
-        #print('Cyl!')
-        rho, phi, z = symbols('rho phi z')
         div = (1/rho)*get_partial_derivative(rho*v_1[0], rho) + (1/rho)*get_partial_derivative(v_1[1], phi) + \
               get_partial_derivative(v_1[2], z)
     elif is_spherical(v_1):
-        #print('Cyl!')
-        radi, theta, phi = symbols('radi theta phi')
         div = (1/(radi**2))*get_partial_derivative((radi**2)*v_1[0], radi) + (1/(radi*sin(theta)))*\
               get_partial_derivative(sin(theta)*v_1[1], theta) + (1/(radi*sin(theta)))*get_partial_derivative(v_1[2],
                                                                                                               phi)
@@ -111,9 +99,21 @@ def get_divergence(v_1):
     return div
 
 
-def get_curl():
+def get_curl(v_1):
     '''Return the Curl of a vector.'''
-    print('todo')
+    if is_cartesian(v_1):
+        curl = np.array([[diff(v_1[2], y) - diff(v_1[1], z)], [diff(v_1[0], z) - diff(v_1[2], x)],
+                         [diff(v_1[1], x) - diff(v_1[0], y)]])
+    elif is_cylindrical(v_1):
+        curl = np.array([[(1/rho)*diff(v_1[2], phi) - diff(v_1[1], z)], [diff(v_1[0], z) - diff(v_1[2], rho)],
+                         [(1/rho)*(diff(rho*v_1[1], rho) - diff(v_1[0], phi))]])
+    elif is_spherical(v_1):
+        curl = np.array([[(1/(radi*sin(theta)))*(diff(sin(theta)*v_1[2], theta) - diff(v_1[1], phi))],
+                         [(1/radi)*((1/sin(theta))*diff(v_1[0], phi) - diff(radi*v_1[2], radi))],
+                         [(1/radi)*(diff(radi*v_1[1], radi) - diff(v_1[0], theta))]])
+    else:
+        print('todo')
+    return curl
 
 
 def from_radian_2degree(radian):
