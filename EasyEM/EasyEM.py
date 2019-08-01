@@ -3,7 +3,6 @@
 
 # TODO:
     Future goals:
-        - Curl
         - Line integral
         - Surface integral
         - Volume Integral
@@ -12,7 +11,7 @@
         - Conversion functions for coordinate systems. (cart2spher, cart2..)
         - Fix symbols
     Currently working on:
-        - Curl
+        - Laplacian of a scalar
 Important Variables:
 
     Coordinate System
@@ -45,6 +44,19 @@ import math
 from sympy import diff, integrate, sqrt, Symbol, symbols, cos, sin, acos, atan
 from sympy.abc import x, y, z, theta, rho, phi
 radi = Symbol('radi')
+
+
+def get_laplacian_of_scalar(function):
+    if is_cartesian(function):
+        laplacian = diff(diff(function, x), x) + diff(diff(function, y), y) + diff(diff(function, z), z)
+    if is_cylindrical(function):
+        laplacian = (1/rho)*diff(rho*diff(function, rho), rho) + (1/rho**2)*diff(diff(function, phi), phi) + \
+                    diff(diff(function, z), z)
+    if is_spherical(function):
+        laplacian = (1/radi**2)*diff(radi**2*diff(function, radi), radi) + \
+                    (1/((radi**2) * sin(theta))) * diff(sin(theta)*diff(function, theta), theta) + \
+                    (1/((radi**2) * sin(theta)**2)) * diff(diff(function, phi), phi)
+    return laplacian
 
 
 def get_derivative(function, symbol):
